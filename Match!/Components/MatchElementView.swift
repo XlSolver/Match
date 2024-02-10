@@ -16,7 +16,7 @@ struct MatchElementView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
             .foregroundStyle(.regularMaterial)
-            
+            //singolo match con le informazioni relative
             VStack {
                 HStack {
                     Text(player.name)

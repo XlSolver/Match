@@ -26,10 +26,9 @@ struct PlayerView: View {
                         .resizable()
                         .scaledToFit()
                         .clipShape(Circle())
-                    Spacer()
                 }
                 
-                Text("Player name")
+                Text("Hello, \(player.name) \(player.surname)!")
                 
                 //PhotoManage
                 Section {
