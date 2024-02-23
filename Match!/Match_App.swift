@@ -15,10 +15,11 @@ struct Match_App: App {
     
     init() {
         do {
-            let playerDB = ModelConfiguration(for: Player.self)
-            let matchDB = ModelConfiguration(for: Match.self)
+//            let playerDB = ModelConfiguration(for: Player.self)
+//            let matchDB = ModelConfiguration(for: Match.self)
+            let database = ModelConfiguration(for: Player.self, Match.self, isStoredInMemoryOnly: true)
             
-            container = try ModelContainer(for: Player.self, Match.self, configurations: playerDB, matchDB)
+            container = try ModelContainer(for: Player.self, Match.self, configurations: database)
         } catch {
             fatalError("Failed to configurate SwiftData container.")
         }

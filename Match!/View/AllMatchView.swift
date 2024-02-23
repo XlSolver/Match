@@ -14,17 +14,26 @@ struct AllMatchView: View {
     @Binding var player: Player
     @Binding var match: [Match]
     
+    //It makes the app crash
+    @Query var allMatchesInRange: [Match]
+    
     @State private var IsShowingSheet: Bool = false
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                List(match) { item in
-                    NavigationLink(destination: MatchElementView(player: $player)) {
-                        
+                
+                //lista dei match
+                ForEach(allMatchesInRange) { item in
+//                    NavigationLink(destination: MatchElementView(player: $player)) {
+//                        
+//                    }
+                    VStack(alignment: .leading) {
+                        Text(item.matchName)
+                            .font(.headline)
                     }
-                    //lista dei match
                 }
+                
             }
             .toolbar {
                 ToolbarItemGroup(placement: .automatic) {
@@ -34,7 +43,7 @@ struct AllMatchView: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $IsShowingSheet){
-                        SheetView()
+                        NewMatchSheetView()
                     }
                 }
             }
@@ -45,12 +54,5 @@ struct AllMatchView: View {
 
 #Preview {
     AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()))
-}
-///Sheet view that enables the user to create a new match
-struct SheetView: View {
-    @Environment (\.dismiss) var dismiss
-    
-    var body: some View {
-        Text("test")
-    }
+        .modelContainer(for: Match.self)
 }

@@ -8,11 +8,11 @@
 import Foundation
 import SwiftData
 import SwiftUI
+import MapKit
 
 /////Class that identify the entity player (Persistent data)
 @Model
-final class Player: Identifiable {
-    var id = UUID()
+final class Player {
     var name: String = ""
     var surname: String = ""
     var age: Int = 0
@@ -27,32 +27,23 @@ final class Player: Identifiable {
         self.profilePicture = profilePicture
     }
 }
-/////The generic structure for a team
-@Model
-class Team {
-    var name: String
-    var teamMember: Player
-    
-    init(name: String, teamMember: Player) {
-        self.name = name
-        self.teamMember = teamMember
-    }
-}
+
 /////Class that create an object for a match (Persistent data)
 @Model
-final class Match {
-    var field: String //test need to check
-    var teamHome: Team
-    var teamOspite: Team
+final class Match: Identifiable {
+    var id = UUID()
+    var fieldLatitude: Double
+    var fieldLongitude: Double
     var time: Date
-    var price: Float
+    var price: Double
+    var matchName: String
     
-    init(field: String, teamHome: Team, teamOspite: Team, time: Date, price: Float) {
-        self.field = field
-        self.teamHome = teamHome
-        self.teamOspite = teamOspite
+    init(fieldLatitude: Double, fieldLongitude: Double, time: Date, price: Double, matchName: String) {
+        self.fieldLatitude = fieldLatitude
+        self.fieldLongitude = fieldLongitude
         self.time = time
         self.price = price
+        self.matchName = matchName
     }
 }
 
