@@ -20,8 +20,13 @@ struct NewMatchSheetView: View {
   @State private var priceString: String = ""
   @State private var selectedField: Location? = nil // Holds selected field data
   @State private var isShowingMap = false
-
+    
+    
     var body: some View {
+        
+    @StateObject var locationManager: LocationManager = .init()
+
+        
         NavigationView {
             List {
                 Section {
@@ -38,6 +43,10 @@ struct NewMatchSheetView: View {
                 }
                 Section {
                     DatePicker("Date & Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                }
+                
+                Section {
+                    TextField("Find locations here", text: $locationManager.searchText)
                 }
                     
             }
