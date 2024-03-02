@@ -22,7 +22,7 @@ class LocationManager: NSObject, MKMapViewDelegate, ObservableObject, CLLocation
     ///MARK: Searchbar text
     @Published var searchText: String = ""
     var cancellable: AnyCancellable?
-    @Published var fetchedPlaces: [CLLocation]?
+    @Published var fetchedPlaces: [MKPlacemark]?
     
     
     override init() {
@@ -40,7 +40,11 @@ class LocationManager: NSObject, MKMapViewDelegate, ObservableObject, CLLocation
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink(receiveValue: { value in
-                self.fetchPlaces(value: value)
+                if value != "" {
+                    self.fetchPlaces(value: value)
+                } else {
+                    self.fetchedPlaces = nil
+                }
             })
     }
     
@@ -54,12 +58,14 @@ class LocationManager: NSObject, MKMapViewDelegate, ObservableObject, CLLocation
                 let response = try await MKLocalSearch(request: request).start()
                 //We can also use Mainactor to publish changes in main thread
                 await MainActor.run(body: {
-                    self.fetchedPlaces = response.mapItems.compactMap({ item -> CLPlacemark? in
+                    self.fetchedPlaces = response.mapItems.compactMap ({ item -> MKPlacemark in
+                        print("Funzionaaaaaaa")
                         return item.placemark
                     })
                 })
             } catch {
                 //HANDLE ERROR
+                print("Non funzionaaaaaaaaaa")
             }
         }
     }
@@ -68,7 +74,7 @@ class LocationManager: NSObject, MKMapViewDelegate, ObservableObject, CLLocation
         // HANDLE ERROR
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocation location: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let _ = locations.last else { return }
     }
     

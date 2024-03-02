@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import MapKit
 
 
 @main
@@ -28,7 +29,7 @@ struct Match_App: App {
     
     var body: some Scene {
         WindowGroup {
-            AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()))
+            AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()), position: .constant(MapCameraPosition.automatic))
 //            PlayerView(player: Player(name: "Ciccio", surname: "Pasticcio", age: 10, skillLevel: 12, profilePicture: Data()))
         }
         .modelContainer(container)

@@ -7,12 +7,14 @@
 
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct AllMatchView: View {
     @Environment (\.modelContext) private var context
     
     @Binding var player: Player
     @Binding var match: [Match]
+    @Binding var position: MapCameraPosition
     
     //It makes the app crash
     @Query var allMatchesInRange: [Match]
@@ -43,7 +45,7 @@ struct AllMatchView: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $IsShowingSheet){
-                        NewMatchSheetView()
+                        NewMatchSheetView(position: $position)
                     }
                 }
             }
@@ -53,6 +55,6 @@ struct AllMatchView: View {
 }
 
 #Preview {
-    AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()))
+    AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()), position: .constant(MapCameraPosition.automatic))
         .modelContainer(for: Match.self)
 }
