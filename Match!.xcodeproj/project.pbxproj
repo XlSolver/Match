@@ -16,6 +16,7 @@
 		F5CEDFCA2B14A92400A50B16 /* AllMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CEDFC92B14A92400A50B16 /* AllMatchView.swift */; };
 		F5CEDFCC2B14A92600A50B16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */; };
 		F5CEDFCF2B14A92600A50B16 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5CEDFCE2B14A92600A50B16 /* Preview Assets.xcassets */; };
+		F5D3A87F2B97373E0055FFC8 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D3A87E2B97373E0055FFC8 /* LocationDetailsView.swift */; };
 		F5F1D4FF2B933A8B00249AEE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1D4FE2B933A8B00249AEE /* MapView.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		F5CEDFC92B14A92400A50B16 /* AllMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMatchView.swift; sourceTree = "<group>"; };
 		F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5CEDFCE2B14A92600A50B16 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F5D3A87E2B97373E0055FFC8 /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 		F5F1D4FE2B933A8B00249AEE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 				F558DA982B782CA400D95E84 /* NewMatchSheetView.swift */,
 				F5427A362B8F3ADA0061DA84 /* LocationManager.swift */,
 				F5F1D4FE2B933A8B00249AEE /* MapView.swift */,
+				F5D3A87E2B97373E0055FFC8 /* LocationDetailsView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				F5F1D4FF2B933A8B00249AEE /* MapView.swift in Sources */,
 				F558DA992B782CA400D95E84 /* NewMatchSheetView.swift in Sources */,
 				F5CEDFCA2B14A92400A50B16 /* AllMatchView.swift in Sources */,
+				F5D3A87F2B97373E0055FFC8 /* LocationDetailsView.swift in Sources */,
 				F5427A372B8F3ADA0061DA84 /* LocationManager.swift in Sources */,
 				F5CEDFC82B14A92400A50B16 /* Match_App.swift in Sources */,
 				F54BB65F2B72D4F70010E2D5 /* MatchElementView.swift in Sources */,
@@ -323,7 +327,7 @@
 				DEVELOPMENT_TEAM = JZX85Z36BA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "See the world around you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -353,7 +357,7 @@
 				DEVELOPMENT_TEAM = JZX85Z36BA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "See the world around you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

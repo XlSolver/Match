@@ -93,3 +93,29 @@ class LocationManager: NSObject, MKMapViewDelegate, ObservableObject, CLLocation
         // HANDLE ERROR
     }
 }
+
+
+//Code from new match sheet view 
+
+//                    TextField("Find locations here", text: $locationManager.searchText)
+//
+//                    if let places = locationManager.fetchedPlaces, !places.isEmpty {
+//                        List {
+//                            ForEach(places, id: \.self) { place in
+//                                HStack(spacing: 15) {
+//                                    Image(systemName: "mappin.circle.fill")
+//                                        .font(.title2)
+//                                        .foregroundStyle(.gray)
+//
+//                                    VStack(alignment: .leading, spacing: 6) {
+//                                        Text(place.name ?? " aiutooooo")
+//                                            .font(.title3.bold())
+//                                        Text(place.locality ?? "non so che fareeee")
+//                                            .font(.caption)
+//                                            .foregroundStyle(.gray)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .listStyle(.plain)
+//                    }
