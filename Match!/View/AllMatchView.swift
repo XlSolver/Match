@@ -30,9 +30,13 @@ struct AllMatchView: View {
 //                    NavigationLink(destination: MatchElementView(player: $player)) {
 //                        
 //                    }
-                    VStack(alignment: .leading) {
-                        Text(item.matchName)
-                            .font(.headline)
+                    if !allMatchesInRange.isEmpty {
+                        VStack(alignment: .leading) {
+                            Text(item.matchName)
+                                .font(.headline)
+                        }
+                    } else {
+                        
                     }
                 }
                 

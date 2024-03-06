@@ -17,6 +17,7 @@
 		F5CEDFCC2B14A92600A50B16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */; };
 		F5CEDFCF2B14A92600A50B16 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5CEDFCE2B14A92600A50B16 /* Preview Assets.xcassets */; };
 		F5D3A87F2B97373E0055FFC8 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D3A87E2B97373E0055FFC8 /* LocationDetailsView.swift */; };
+		F5D3A8812B989FDD0055FFC8 /* CupAnimation.mov in Resources */ = {isa = PBXBuildFile; fileRef = F5D3A8802B989FDC0055FFC8 /* CupAnimation.mov */; };
 		F5F1D4FF2B933A8B00249AEE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1D4FE2B933A8B00249AEE /* MapView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5CEDFCE2B14A92600A50B16 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F5D3A87E2B97373E0055FFC8 /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
+		F5D3A8802B989FDC0055FFC8 /* CupAnimation.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = CupAnimation.mov; sourceTree = "<group>"; };
 		F5F1D4FE2B933A8B00249AEE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +81,7 @@
 				F5CEDFD52B14A94200A50B16 /* DatabaseAPP */,
 				F5DF56E42B60761800DE223A /* Components */,
 				F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */,
+				F5D3A8802B989FDC0055FFC8 /* CupAnimation.mov */,
 				F5CEDFCD2B14A92600A50B16 /* Preview Content */,
 			);
 			path = "Match!";
@@ -172,6 +175,7 @@
 			files = (
 				F5CEDFCF2B14A92600A50B16 /* Preview Assets.xcassets in Resources */,
 				F5CEDFCC2B14A92600A50B16 /* Assets.xcassets in Resources */,
+				F5D3A8812B989FDD0055FFC8 /* CupAnimation.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
