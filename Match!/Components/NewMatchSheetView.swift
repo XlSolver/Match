@@ -22,7 +22,12 @@ struct NewMatchSheetView: View {
     @State private var searchMapResult: [MKMapItem] = [] //State to keep track of the search results.
     @State private var isShowingMap = false
     
+    @Binding var searchLocation: String
+    
     @Binding var position: MapCameraPosition
+    
+    //To add done button on top of keyboard
+    @FocusState private var keyboardFocused: Bool
     
     
     
@@ -38,26 +43,25 @@ struct NewMatchSheetView: View {
                 Section {
                     TextField("Match Name", text: $matchName)
                         .autocorrectionDisabled(true)
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(.automatic)
+                        .focused($keyboardFocused)
+                        
                     
                     
-                    TextField("", value: $price, format: .currency(code: "EUR"))
+                    TextField("0,00€", value: $price, format: .currency(code: "EUR"))
                         .keyboardType(.decimalPad)
-                        .autocorrectionDisabled(true)
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(.automatic)
+                        .focused($keyboardFocused)
+                        
+                        
                     
                 }
                 Section {
                     DatePicker("Date & Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
                 }
-                
-                Section {
-                    MapView()
-                        .scaledToFit()
-                        .clipShape(.rect(cornerRadius: 10))
-                   
-                }
-                
+                MapView()
+                    .scaledToFill()
+                    .clipShape(.rect(cornerRadius: 10))
             }
             .toolbar {
                 ToolbarItem {
@@ -68,10 +72,18 @@ struct NewMatchSheetView: View {
                         matchName.isEmpty || price.isNaN || price.isLessThanOrEqualTo(0.0) /*|| selectedField == nil*/
                     )
                 }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button(action: { keyboardFocused = false }) {
+                        Text("Done")
+                    }
+                }
             }
+//            Section {
+                //DispatchConcurrentQueue. TODO: CAPIRE COME CARICARE LE COSE IN ALTRI THREAD
+                
+//            }
         }
-        
-        
     }
     
     private func saveMatch() {
@@ -118,6 +130,6 @@ struct Location {
 }
 
 #Preview {
-    NewMatchSheetView(position: .constant(MapCameraPosition.automatic))
+    NewMatchSheetView(searchLocation: .constant("vesuvio"), position: .constant(MapCameraPosition.automatic))
         .modelContainer(for: Match.self)
 }

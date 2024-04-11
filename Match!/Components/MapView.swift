@@ -33,6 +33,8 @@ struct MapView: View {
                 let placemark = result.placemark
                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
             }
+            
+            
         }
         .mapStyle(.standard(elevation: .realistic))
         .onChange(of: searchMapResult) {
@@ -40,14 +42,14 @@ struct MapView: View {
         }
         
         //Show search bar
-        .overlay(alignment: .top) {
+        //TO DO: 
+        .overlay(alignment: .bottom) {
             TextField("Search for a location", text: $searchLocation)
                 .font(.subheadline)
                 .padding(12) //increase searchbar size
                 .background(.windowBackground)
                 .padding() //separate from top screen section
                 .shadow(radius: 10)
-                
         }
         .onSubmit(of: .text) {
             Task { await search() }

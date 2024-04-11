@@ -22,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F5281E7F2BC83A9A00AEB45C /* Match!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Match!.entitlements"; sourceTree = "<group>"; };
+		F5281E802BC83AD900AEB45C /* Match--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Match--Info.plist"; sourceTree = SOURCE_ROOT; };
 		F5427A362B8F3ADA0061DA84 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F54BB65E2B72D4F70010E2D5 /* MatchElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchElementView.swift; sourceTree = "<group>"; };
 		F558DA982B782CA400D95E84 /* NewMatchSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMatchSheetView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,8 @@
 		F5CEDFC62B14A92400A50B16 /* Match! */ = {
 			isa = PBXGroup;
 			children = (
+				F5281E802BC83AD900AEB45C /* Match--Info.plist */,
+				F5281E7F2BC83A9A00AEB45C /* Match!.entitlements */,
 				F5CEDFC72B14A92400A50B16 /* Match_App.swift */,
 				F59994662B14B7100099596B /* View */,
 				F5CEDFD52B14A94200A50B16 /* DatabaseAPP */,
@@ -325,12 +329,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Match!/Match!.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Match!/Preview Content\"";
 				DEVELOPMENT_TEAM = JZX85Z36BA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Match--Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "See the world around you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -355,12 +361,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Match!/Match!.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Match!/Preview Content\"";
 				DEVELOPMENT_TEAM = JZX85Z36BA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Match--Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "See the world around you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

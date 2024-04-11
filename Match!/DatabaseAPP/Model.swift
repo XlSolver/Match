@@ -32,11 +32,11 @@ final class Player {
 @Model
 final class Match: Identifiable {
     var id = UUID()
-    var fieldLatitude: Double
-    var fieldLongitude: Double
-    var time: Date
-    var price: Double
-    var matchName: String
+    var fieldLatitude: Double = 0.0
+    var fieldLongitude: Double = 0.0
+    var time: Date = Date.now
+    var price: Double = 0.0
+    var matchName: String = "No name"
     
     init(fieldLatitude: Double, fieldLongitude: Double, time: Date, price: Double, matchName: String) {
         self.fieldLatitude = fieldLatitude
@@ -49,8 +49,8 @@ final class Match: Identifiable {
 
 /////Stats for every player
 struct statistic {
-    var goal: Int
-    var assist: Int
-    var gamePlayed: Int
+    var goal: Int = 0
+    var assist: Int = 0
+    var gamePlayed: Int = 0
     
 }
