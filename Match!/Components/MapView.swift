@@ -15,25 +15,44 @@ import MapKit
 struct MapView: View {
     
     @State private var searchMapResult: [MKMapItem] = [MKMapItem]()
-    @State private var positionRegion: MapCameraPosition = .automatic
+    @State private var positionRegion: MapCameraPosition = .region(.userRegion) //Render
     @State private var searchLocation: String = ""
-    @State private var mapSelection: MKMapItem?
+    @State private var markerSelector: MKMapItem?
+    @State private var sheetSelectionDetails: Bool = false
+    @State private var getDirections: Bool = false
+    @State private var routeDisplaying: Bool = false //If a route is displaying
+    @State private var route: MKRoute?
+    @State private var routeDestination: MKMapItem?
     
     var body: some View {
-        Map(position: $positionRegion, selection: $mapSelection) {
+        //Passing runtime data to map render
+        Map(position: $positionRegion, selection: $markerSelector) {
             UserAnnotation()
             
             //Markers are used to display content at a specific coordinate on the map.
-            Marker("Diego Armando Maradona Stadium", systemImage:"sportscourt",
-                   coordinate: .MaradonaStadium)
+            //TODO: Open the map at user location
+            //            Marker("Diego Armando Maradona Stadium", systemImage:"sportscourt",
+            //                   coordinate: .userLocation)
             
             //Like Marker, Annotation is used to display content at a specific coordinate but displays a SwiftUI View.
             
             ForEach(searchMapResult, id: \.self) { result in
-                let placemark = result.placemark
-                Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                if routeDisplaying {
+                    if result == routeDestination {
+                        //Only show the selected placemark
+                        let placemark = result.placemark
+                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                    } else {
+                        let placemark = result.placemark
+                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                    }
+                }
             }
             
+            if let route {
+                MapPolyline(route.polyline)
+                    .stroke(.blue, lineWidth: 6)
+            }
             
         }
         .mapStyle(.standard(elevation: .realistic))
@@ -41,8 +60,8 @@ struct MapView: View {
             positionRegion = .automatic
         }
         
-        //Show search bar
-        //TO DO: 
+        //Show search bar, add beheviour and sheetView
+        
         .overlay(alignment: .bottom) {
             TextField("Search for a location", text: $searchLocation)
                 .font(.subheadline)
@@ -52,26 +71,39 @@ struct MapView: View {
                 .shadow(radius: 10)
         }
         .onSubmit(of: .text) {
-            Task { await search() }
+            Task { await searchPlaces() }
         }
-        .onChange(of: mapSelection, { oldValue, newValue in
+        .onChange(of: getDirections, { oldValue, newValue in
+            if newValue {
+                fetchRoute()
+            }
+        })
+        //Whenever we select an item, if newValue is not nil then show the value in sheet
+        .onChange(of: markerSelector, { oldValue, newValue in
+            sheetSelectionDetails = newValue != nil
+        })
+        .sheet(isPresented: $sheetSelectionDetails, content: { LocationDetailsView(markerSelector: $markerSelector, showSheet: $sheetSelectionDetails, getDirections: $getDirections)
+            //TODO: check documentation
             
+                .presentationDetents([.height(340)])
+            //Allow the user to interact whit the map when the view is presented
+                .presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
+                .presentationCornerRadius(12)
         })
         .mapControls{
             MapCompass()
             MapUserLocationButton()
             MapPitchToggle()
         }
-            
     }
-    
-    //The search function uses MKLocalSearch to find places near the Boston Common parking garage, and writes the results using a binding.
-    private func search () async {
+}
+//The search function uses MKLocalSearch to find places near the Boston Common parking garage, and writes the results using a binding.
+extension MapView {
+    private func searchPlaces () async {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchLocation
         request.resultTypes = .pointOfInterest
-        request.region = MKCoordinateRegion(center: .MaradonaStadium, span: MKCoordinateSpan(latitudeDelta: 0.125, longitudeDelta: 0.125)
-        )
+        request.region = .userRegion
         
         Task {
             let search = MKLocalSearch(request: request)
@@ -79,12 +111,42 @@ struct MapView: View {
             searchMapResult = response?.mapItems ?? []
         }
     }
+    private    func fetchRoute() {
+        if let markerSelector {
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: .init(coordinate: .userLocation))
+            request.destination = markerSelector
+            
+            Task {
+                let result = try? await MKDirections(request: request).calculate()
+                route = result?.routes.first //Array i think, check documentation
+                routeDestination = markerSelector
+                
+                withAnimation(.snappy) {
+                    routeDisplaying = true
+                    sheetSelectionDetails = false
+                    
+                    //TODO: check documentation for boundingMapRect
+                    if let rect = route?.polyline.boundingMapRect, routeDisplaying {
+                        positionRegion = .rect(rect)
+                        
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension CLLocationCoordinate2D {
-    static let MaradonaStadium = CLLocationCoordinate2D(
-        latitude: 40.827965, longitude: 14.192947
-    )
+    static var userLocation: CLLocationCoordinate2D {
+        return .init(latitude: 40.827965, longitude: 14.192947)
+    }
+}
+
+extension MKCoordinateRegion {
+    static var userRegion: MKCoordinateRegion {
+        return .init(center: .userLocation, latitudinalMeters: 3000, longitudinalMeters: 3000)
+    }
 }
 
 
