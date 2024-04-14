@@ -29,9 +29,9 @@ struct AllMatchView: View {
                 
                 //lista dei match
                 ForEach(allMatchesInRange) { item in
-//                    NavigationLink(destination: MatchElementView(player: $player)) {
-//                        
-//                    }
+                    //                    NavigationLink(destination: MatchElementView(player: $player)) {
+                    //
+                    //                    }
                     if !allMatchesInRange.isEmpty {
                         VStack(alignment: .leading) {
                             Text(item.matchName)
@@ -42,6 +42,9 @@ struct AllMatchView: View {
                     }
                 }
                 
+            }
+            .task{
+                CLLocationManager().requestWhenInUseAuthorization()
             }
             .toolbar {
                 ToolbarItemGroup(placement: .automatic) {
