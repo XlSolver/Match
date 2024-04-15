@@ -23,8 +23,8 @@ struct NewMatchSheetView: View {
     @State private var isShowingMap = false
     
     @Binding var searchLocation: String
-    
     @Binding var position: MapCameraPosition
+    @Binding var markerSelector: MKMapItem?
     
     //To add done button on top of keyboard
     @FocusState private var keyboardFocused: Bool
@@ -94,13 +94,15 @@ struct NewMatchSheetView: View {
             return
         }
         
-        let newMatch = Match(
-            fieldLatitude: selectedField.coordinate.latitude,
-            fieldLongitude: selectedField.coordinate.longitude,
-            time: date,
-            price: price,
-            matchName: matchName
-        )
+        
+        
+//        let newMatch = Match(
+//            fieldLatitude: selectedField.coordinate.latitude,
+//            fieldLongitude: selectedField.coordinate.longitude,
+//            time: date,
+//            price: price,
+//            matchName: matchName
+//        )
         
         do {
             print("Cane")
@@ -130,6 +132,6 @@ struct Location {
 }
 
 #Preview {
-    NewMatchSheetView(searchLocation: .constant("vesuvio"), position: .constant(MapCameraPosition.automatic))
+    NewMatchSheetView(searchLocation: .constant("vesuvio"), position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil))
         .modelContainer(for: Match.self)
 }

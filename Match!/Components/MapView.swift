@@ -31,23 +31,24 @@ struct MapView: View {
             
             //Markers are used to display content at a specific coordinate on the map.
             //TODO: Open the map at user location
-            //            Marker("Diego Armando Maradona Stadium", systemImage:"sportscourt",
-            //                   coordinate: .userLocation)
+//            Marker("Diego Armando Maradona Stadium", systemImage:"sportscourt",
+//                   coordinate: .userLocation)
             
             //Like Marker, Annotation is used to display content at a specific coordinate but displays a SwiftUI View.
             
-            ForEach(searchMapResult, id: \.self) { result in
-                if routeDisplaying {
-                    if result == routeDestination {
-                        //Only show the selected placemark
-                        let placemark = result.placemark
-                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                ForEach(searchMapResult, id: \.self) { result in
+                    if routeDisplaying {
+                        if result == routeDestination {
+                            //Only show the selected placemark
+                            let placemark = result.placemark
+                            Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                        }
                     } else {
                         let placemark = result.placemark
                         Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                        
                     }
                 }
-            }
             
             if let route {
                 MapPolyline(route.polyline)
@@ -69,6 +70,7 @@ struct MapView: View {
                 .background(.windowBackground)
                 .padding() //separate from top screen section
                 .shadow(radius: 10)
+            
         }
         .onSubmit(of: .text) {
             Task { await searchPlaces() }
@@ -99,19 +101,35 @@ struct MapView: View {
 }
 //The search function uses MKLocalSearch to find places near the Boston Common parking garage, and writes the results using a binding.
 extension MapView {
-    private func searchPlaces () async {
+    func searchPlaces () async {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchLocation
-        request.resultTypes = .pointOfInterest
+//        request.resultTypes = .pointOfInterest
         request.region = .userRegion
         
         Task {
-            let search = MKLocalSearch(request: request)
-            let response = try? await search.start()
-            searchMapResult = response?.mapItems ?? []
+            let results = try? await MKLocalSearch(request: request).start()
+            self.searchMapResult = results?.mapItems ?? []
+            print("DEBUG: request ->>> \(request)")
+            print("DEBUG: response ->>> \(results ?? MKMapItem())")
+            print("DEBUG: searchlocation ---> \(searchLocation)")
+            print("DEBUG: searchmapresult ---> \(searchMapResult)")
+            
         }
+        
+//        Task {
+//            let search = MKLocalSearch(request: request)
+//            print("DEBUG: search ->>> \(search)")
+//            let response = try? await search.start()
+//            print("DEBUG: response ->>> \(response!)")
+//            searchMapResult = response?.mapItems ?? []
+//        }
+//        print("DEBUG: searchlocation ---> \(searchLocation)")
+//        
+//        print("DEBUG: searchmapresult ---> \(searchMapResult)")
+        
     }
-    private    func fetchRoute() {
+    func fetchRoute() {
         if let markerSelector {
             let request = MKDirections.Request()
             request.source = MKMapItem(placemark: .init(coordinate: .userLocation))
@@ -145,7 +163,7 @@ extension CLLocationCoordinate2D {
 
 extension MKCoordinateRegion {
     static var userRegion: MKCoordinateRegion {
-        return .init(center: .userLocation, latitudinalMeters: 3000, longitudinalMeters: 3000)
+        return .init(center: .userLocation, latitudinalMeters: 15000, longitudinalMeters: 15000)
     }
 }
 
