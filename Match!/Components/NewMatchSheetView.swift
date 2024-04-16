@@ -96,13 +96,13 @@ struct NewMatchSheetView: View {
         
         
         
-//        let newMatch = Match(
-//            fieldLatitude: selectedField.coordinate.latitude,
-//            fieldLongitude: selectedField.coordinate.longitude,
-//            time: date,
-//            price: price,
-//            matchName: matchName
-//        )
+        let newMatch = Match(
+            fieldLatitude: selectedField.coordinate.latitude,
+            fieldLongitude: selectedField.coordinate.longitude,
+            time: date,
+            price: price,
+            matchName: matchName
+        )
         
         do {
             print("Cane")

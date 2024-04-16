@@ -32,13 +32,15 @@ final class Player {
 @Model
 final class Match: Identifiable {
     var id = UUID()
-    var fieldLatitude: CLLocation?
-    var fieldLongitude: CLLocation?
+    var fieldLatitude: Double = 0.0
+    var fieldLongitude: Double = 0.0
     var time: Date = Date.now
     var price: Double = 0.0
     var matchName: String = "No name"
     
-    init(time: Date, price: Double, matchName: String) {
+    init(fieldLatitude: Double, fieldLongitude: Double, time: Date, price: Double, matchName: String) {
+        self.fieldLatitude = fieldLatitude
+        self.fieldLongitude = fieldLongitude
         self.time = time
         self.price = price
         self.matchName = matchName

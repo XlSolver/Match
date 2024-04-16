@@ -15,7 +15,7 @@ struct AllMatchView: View {
     @Binding var player: Player
     @Binding var match: [Match]
     @Binding var position: MapCameraPosition
-    
+    @Binding var markerSelector: MKMapItem?
     @Binding var searchLocation: String
     
     //It makes the app crash
@@ -55,7 +55,7 @@ struct AllMatchView: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $IsShowingSheet){
-                        NewMatchSheetView(searchLocation: $searchLocation, position: $position)
+                        NewMatchSheetView(searchLocation: $searchLocation, position: $position, markerSelector: $markerSelector)
                     }
                 }
             }
@@ -65,6 +65,6 @@ struct AllMatchView: View {
 }
 
 #Preview {
-    AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()), position: .constant(MapCameraPosition.automatic), searchLocation: .constant(""))
+    AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()), position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil), searchLocation: .constant("") )
         .modelContainer(for: Match.self)
 }
