@@ -18,9 +18,9 @@ struct NewMatchSheetView: View {
     @State private var date = Date()
     @State private var price: Double = 0.0
     @State private var priceString: String = ""
-    @State private var selectedField: Location? = nil // Holds selected field data
     @State private var searchMapResult: [MKMapItem] = [] //State to keep track of the search results.
     @State private var isShowingMap = false
+    @State private var selectThisPlace: Bool = false
     
     @Binding var searchLocation: String
     @Binding var position: MapCameraPosition
@@ -52,9 +52,6 @@ struct NewMatchSheetView: View {
                         .keyboardType(.decimalPad)
                         .textFieldStyle(.automatic)
                         .focused($keyboardFocused)
-                        
-                        
-                    
                 }
                 Section {
                     DatePicker("Date & Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
@@ -69,7 +66,7 @@ struct NewMatchSheetView: View {
                         Text("Create Match")
                     }
                     .disabled(
-                        matchName.isEmpty || price.isNaN || price.isLessThanOrEqualTo(0.0) /*|| selectedField == nil*/
+                        matchName.isEmpty || price.isNaN || price.isLessThanOrEqualTo(0.0) /*|| markerSelector == nil*/
                     )
                 }
                 ToolbarItemGroup(placement: .keyboard) {
@@ -84,28 +81,27 @@ struct NewMatchSheetView: View {
                 
 //            }
         }
+        //TODO: Inserire questo check per verificare l'inserimento di un posto e assegnarlo
+//        .onChange(of: selectThisPlace, { olvValue, newValue in
+//            if newValue {
+//                let temp = markerSelector?.placemark.coordinate
+//            }
+//        })
     }
     
     private func saveMatch() {
-        guard let selectedField = selectedField else {
-            // Handle the case where no field is selected
-            print("Ciao")
-            //la funzione si blocca qui perché non riesce a prendere i dati della posizione e quindi non salva e non chiude la modale
-            return
-        }
-        
-        
-        
+        //TODO: Handle error
+        print("DEBUG: Istanza in creazione del nuovo match nel db")
         let newMatch = Match(
-            fieldLatitude: selectedField.coordinate.latitude,
-            fieldLongitude: selectedField.coordinate.longitude,
+            fieldLatitude: markerSelector?.placemark.coordinate.latitude ?? 0, //TODO: Handle the error
+            fieldLongitude: markerSelector?.placemark.coordinate.longitude ?? 0, //TODO: Handle the error
             time: date,
             price: price,
             matchName: matchName
         )
         
         do {
-            print("Cane")
+            print("DEBUG: Provo a mettere l'istanza nel db")
             context.insert(newMatch)
             try context.save()
             print("Match created successfully!")
@@ -121,15 +117,6 @@ struct NewMatchSheetView: View {
     }
 }
 
-
-
-// Model for field data (replace with your actual field data structure)
-struct Location {
-    let name: String
-    let address: String
-    let coordinate: CLLocationCoordinate2D
-    let region: MKCoordinateRegion // May be derived from coordinate
-}
 
 #Preview {
     NewMatchSheetView(searchLocation: .constant("vesuvio"), position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil))

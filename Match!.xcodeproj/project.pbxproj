@@ -10,6 +10,7 @@
 		F5427A372B8F3ADA0061DA84 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5427A362B8F3ADA0061DA84 /* LocationManager.swift */; };
 		F54BB65F2B72D4F70010E2D5 /* MatchElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54BB65E2B72D4F70010E2D5 /* MatchElementView.swift */; };
 		F558DA992B782CA400D95E84 /* NewMatchSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F558DA982B782CA400D95E84 /* NewMatchSheetView.swift */; };
+		F56F2EE32BCFF44600577D86 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F2EE22BCFF44600577D86 /* File.swift */; };
 		F59994652B14AB4B0099596B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59994642B14AB4B0099596B /* Model.swift */; };
 		F59994682B14B72C0099596B /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59994672B14B72C0099596B /* PlayerView.swift */; };
 		F5CEDFC82B14A92400A50B16 /* Match_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CEDFC72B14A92400A50B16 /* Match_App.swift */; };
@@ -23,10 +24,11 @@
 
 /* Begin PBXFileReference section */
 		F5281E7F2BC83A9A00AEB45C /* Match!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Match!.entitlements"; sourceTree = "<group>"; };
-		F5281E802BC83AD900AEB45C /* Match--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Match--Info.plist"; sourceTree = SOURCE_ROOT; };
+		F5281E802BC83AD900AEB45C /* Match--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Match--Info.plist"; path = "Match!/Miscellaneous/Match--Info.plist"; sourceTree = SOURCE_ROOT; };
 		F5427A362B8F3ADA0061DA84 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F54BB65E2B72D4F70010E2D5 /* MatchElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchElementView.swift; sourceTree = "<group>"; };
 		F558DA982B782CA400D95E84 /* NewMatchSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMatchSheetView.swift; sourceTree = "<group>"; };
+		F56F2EE22BCFF44600577D86 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F59994642B14AB4B0099596B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		F59994672B14B72C0099596B /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		F5CEDFC42B14A92400A50B16 /* Match!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Match!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +52,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F56F2EE02BCFF3FC00577D86 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				F56F2EE22BCFF44600577D86 /* File.swift */,
+				F5281E802BC83AD900AEB45C /* Match--Info.plist */,
+			);
+			path = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		F56F2EE12BCFF42400577D86 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F5D3A8802B989FDC0055FFC8 /* CupAnimation.mov */,
+				F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		F59994662B14B7100099596B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,14 +98,13 @@
 		F5CEDFC62B14A92400A50B16 /* Match! */ = {
 			isa = PBXGroup;
 			children = (
-				F5281E802BC83AD900AEB45C /* Match--Info.plist */,
-				F5281E7F2BC83A9A00AEB45C /* Match!.entitlements */,
 				F5CEDFC72B14A92400A50B16 /* Match_App.swift */,
+				F5281E7F2BC83A9A00AEB45C /* Match!.entitlements */,
 				F59994662B14B7100099596B /* View */,
 				F5CEDFD52B14A94200A50B16 /* DatabaseAPP */,
 				F5DF56E42B60761800DE223A /* Components */,
-				F5CEDFCB2B14A92600A50B16 /* Assets.xcassets */,
-				F5D3A8802B989FDC0055FFC8 /* CupAnimation.mov */,
+				F56F2EE02BCFF3FC00577D86 /* Miscellaneous */,
+				F56F2EE12BCFF42400577D86 /* Assets */,
 				F5CEDFCD2B14A92600A50B16 /* Preview Content */,
 			);
 			path = "Match!";
@@ -195,6 +214,7 @@
 				F558DA992B782CA400D95E84 /* NewMatchSheetView.swift in Sources */,
 				F5CEDFCA2B14A92400A50B16 /* AllMatchView.swift in Sources */,
 				F5D3A87F2B97373E0055FFC8 /* LocationDetailsView.swift in Sources */,
+				F56F2EE32BCFF44600577D86 /* File.swift in Sources */,
 				F5427A372B8F3ADA0061DA84 /* LocationManager.swift in Sources */,
 				F5CEDFC82B14A92400A50B16 /* Match_App.swift in Sources */,
 				F54BB65F2B72D4F70010E2D5 /* MatchElementView.swift in Sources */,
@@ -329,7 +349,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = "Match!/Match!.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Match!/Preview Content\"";
@@ -337,6 +359,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Match--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Match!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "See the world around you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -350,6 +374,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "learning.Match-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -361,7 +386,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = "Match!/Match!.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Match!/Preview Content\"";
@@ -369,6 +396,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Match--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Match!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "See the world around you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -382,6 +411,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "learning.Match-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

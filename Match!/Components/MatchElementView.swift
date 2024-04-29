@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import MapKit
+import SwiftData
 
 struct MatchElementView: View {
     
-    @Binding var player: Player
+//    @Binding var player: Player
+    var markerSelector: MKMapItem?
+    var price: Double
+    @Binding var lookAroundScene: MKLookAroundScene?
+    var matchName: String
+    
+    @Binding var match: [Match]
     
     
     var body: some View {
@@ -18,9 +26,17 @@ struct MatchElementView: View {
             .foregroundStyle(.regularMaterial)
             //singolo match con le informazioni relative
             VStack {
-                HStack {
-                    Text(player.name)
-                    Text(player.surname)
+                //TODO: to fix money that doesn't come from general database
+                Text("\(price, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))")
+//                    var luogo = markerSelector?.openInMaps()
+                if let scene = lookAroundScene {
+                        //Generate the scene with this parameters
+                        LookAroundPreview(initialScene: scene)
+                            .frame(height: 200)
+                            .presentationCornerRadius(12)
+                            .padding()
+                    } else {
+                        ContentUnavailableView("No preview available", systemImage: "eye.slash")
                 }
             }
         }
@@ -28,5 +44,5 @@ struct MatchElementView: View {
 }
 
 #Preview {
-    MatchElementView(player: .constant(Player(name: "Cadrega", surname: "Inganno", age: 0, skillLevel: 0, profilePicture: Data())))
+    MatchElementView(price: 0.0, lookAroundScene: .constant(nil), matchName: "", match: .constant([Match]()))
 }

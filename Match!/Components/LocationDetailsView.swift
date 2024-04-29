@@ -15,6 +15,7 @@ struct LocationDetailsView: View {
     @Binding var markerSelector: MKMapItem?
     @Binding var showSheet: Bool
     @Binding var getDirections: Bool
+    @Binding var selectThisPlace: Bool
     
     var body: some View {
         VStack {
@@ -68,18 +69,32 @@ struct LocationDetailsView: View {
                         .background(.green)
                         .clipShape(RoundedRectangle(cornerRadius: 12.0))
                 }
-                
                 Button {
-                        getDirections = true
-                        showSheet = false
+                    selectThisPlace = true
+                    showSheet = false
+                    
+                    //TODO: Potrei fare una cosa del tipo se cliccassi select salverei prima in una variabile, e nel caso
+                    //in cui si clicchi su create match, salverei la variabile in swiftdata
                 } label: {
-                    Text("Get directions")
+                    Text("Select this place")
                         .font(.headline)
                         .foregroundStyle(.white)
                         .frame(width: 170, height: 48)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
+                
+                //                Button {
+                //                        getDirections = true
+                //                        showSheet = false
+                //                } label: {
+                //                    Text("Get directions")
+                //                        .font(.headline)
+                //                        .foregroundStyle(.white)
+                //                        .frame(width: 170, height: 48)
+                //                        .background(.blue)
+                //                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                //                }
             }
         }
         .onAppear {
@@ -107,5 +122,5 @@ extension LocationDetailsView {
 }
 
 #Preview {
-    LocationDetailsView(markerSelector: .constant(nil), showSheet: .constant(false), getDirections: .constant(false))
+    LocationDetailsView(markerSelector: .constant(nil), showSheet: .constant(false), getDirections: .constant(false), selectThisPlace: .constant(false))
 }
