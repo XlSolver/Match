@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import _MapKit_SwiftUI
 
 struct ContentView: View {
+    @AppStorage ("log_Status") private var logStatus: Bool = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if logStatus {
+            AllMatchView(position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil), searchLocation: .constant(""), price: .constant(0.0), lookAroundScene: .constant(nil), matchName: .constant(""))
+        } else {
+            SignIn()
+        }
     }
 }
 

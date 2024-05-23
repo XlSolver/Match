@@ -60,22 +60,22 @@ struct NewMatchSheetView: View {
                     .scaledToFill()
                     .clipShape(.rect(cornerRadius: 10))
             }
-            .toolbar {
-                ToolbarItem {
-                    Button(action: saveMatch) {
-                        Text("Create Match")
-                    }
-                    .disabled(
-                        matchName.isEmpty || price.isNaN || price.isLessThanOrEqualTo(0.0) /*|| markerSelector == nil*/
-                    )
-                }
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button(action: { keyboardFocused = false }) {
-                        Text("Done")
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem {
+//                    Button(action: saveMatch) {
+//                        Text("Create Match")
+//                    }
+//                    .disabled(
+//                        matchName.isEmpty || price.isNaN || price.isLessThanOrEqualTo(0.0) /*|| markerSelector == nil*/
+//                    )
+//                }
+//                ToolbarItemGroup(placement: .keyboard) {
+//                    Spacer()
+//                    Button(action: { keyboardFocused = false }) {
+//                        Text("Done")
+//                    }
+//                }
+//            }
 //            Section {
                 //DispatchConcurrentQueue. TODO: CAPIRE COME CARICARE LE COSE IN ALTRI THREAD
                 
@@ -89,36 +89,36 @@ struct NewMatchSheetView: View {
 //        })
     }
     
-    private func saveMatch() {
-        //TODO: Handle error
-        print("DEBUG: Istanza in creazione del nuovo match nel db")
-        let newMatch = Match(
-            fieldLatitude: markerSelector?.placemark.coordinate.latitude ?? 0, //TODO: Handle the error
-            fieldLongitude: markerSelector?.placemark.coordinate.longitude ?? 0, //TODO: Handle the error
-            time: date,
-            price: price,
-            matchName: matchName
-        )
-        
-        do {
-            print("DEBUG: Provo a mettere l'istanza nel db")
-            context.insert(newMatch)
-            try context.save()
-            print("Match created successfully!")
-            dismiss()
-        } catch let error as NSError {
-            print("Error creating match: \(error.localizedDescription)")
-            print("Error code: \(error.code)")
-            
-            //      // Show an alert to the user with error details
-            //      let alert = Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .default(Text("OK")))
-            //      present(alert, animated: true)
-        }
-    }
+//    private func saveMatch() {
+//        //TODO: Handle error
+//        print("DEBUG: Istanza in creazione del nuovo match nel db")
+//        let newMatch = Match(
+//            fieldLatitude: markerSelector?.placemark.coordinate.latitude ?? 0, //TODO: Handle the error
+//            fieldLongitude: markerSelector?.placemark.coordinate.longitude ?? 0, //TODO: Handle the error
+//            time: date,
+//            price: price,
+//            matchName: matchName
+//        )
+//        
+//        do {
+//            print("DEBUG: Provo a mettere l'istanza nel db")
+//            context.insert(newMatch)
+//            try context.save()
+//            print("Match created successfully!")
+//            dismiss()
+//        } catch let error as NSError {
+//            print("Error creating match: \(error.localizedDescription)")
+//            print("Error code: \(error.code)")
+//            
+//            //      // Show an alert to the user with error details
+//            //      let alert = Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .default(Text("OK")))
+//            //      present(alert, animated: true)
+//        }
+//    }
 }
 
 
 #Preview {
     NewMatchSheetView(searchLocation: .constant("vesuvio"), position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil))
-        .modelContainer(for: Match.self)
+//        .modelContainer(for: Match.self)
 }

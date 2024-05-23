@@ -17,7 +17,7 @@ struct MatchElementView: View {
     @Binding var lookAroundScene: MKLookAroundScene?
     var matchName: String
     
-    @Binding var match: [Match]
+//    @Binding var match: [Match]
     
     
     var body: some View {
@@ -44,5 +44,5 @@ struct MatchElementView: View {
 }
 
 #Preview {
-    MatchElementView(price: 0.0, lookAroundScene: .constant(nil), matchName: "", match: .constant([Match]()))
+    MatchElementView(price: 0.0, lookAroundScene: .constant(nil), matchName: ""/*, match: .constant([Match]())*/)
 }
