@@ -13,14 +13,16 @@ import FirebaseAuth
 
 struct SignIn: View {
     //Environment variable
+    let auth = Auth.auth()
     /*------------------------------------------------------*/
+    @Environment(\.colorScheme) private var currentScheme
     // Unhashed nonce.
     @State private var nonce: String?
     @State private var errorMessage: String = ""
     @State private var showAlert: Bool = false
     @State private var isLoadingFirebaseAuth: Bool = false
     
-    @AppStorage ("log_Status") private var logStatus: Bool = false
+    @AppStorage("log_Status") private var logStatus: Bool = false
     
     var body: some View {
         VStack {
@@ -29,6 +31,7 @@ struct SignIn: View {
                 self.nonce = nonce
                 request.requestedScopes = [.email, .fullName]
                 request.nonce = sha256(nonce)
+                doesUserExist()
             } onCompletion: { result in
                 switch result {
                 case .success(let authorization):
@@ -37,6 +40,7 @@ struct SignIn: View {
                     showError(message: error.localizedDescription)
                 }
             }
+            .signInWithAppleButtonStyle(.whiteOutline) //Doesn't change properly color
             .frame(maxHeight: .infinity)
             .frame(height: 55)
             //Other signIn option here
@@ -105,7 +109,7 @@ struct SignIn: View {
     func loginWithFirebase(_ authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             isLoadingFirebaseAuth = true
-              guard let nonce  else {
+              guard let nonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
               }
               guard let appleIDToken = appleIDCredential.identityToken else {
@@ -121,7 +125,7 @@ struct SignIn: View {
                                                                 rawNonce: nonce,
                                                                 fullName: appleIDCredential.fullName)
               // Sign in with Firebase.
-              Auth.auth().signIn(with: credential) { (authResult, error) in
+              auth.signIn(with: credential) { (authResult, error) in
                 if let error {
                   // Error. If error.code == .MissingOrInvalidNonce, make sure
                   // you're sending the SHA256-hashed nonce as a hex string with
@@ -141,6 +145,16 @@ struct SignIn: View {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
+    }
+    
+    func doesUserExist() {
+        if auth.currentUser?.uid != nil {
+            print("User \(auth.currentUser?.uid)")
+        } else {
+            
+            let newUser = Player(id: auth.currentUser?.uid ?? UUID().uuidString, fullName: auth.currentUser?.displayName ?? "No name retrieved from apple", skillLevel: 0, matchCreated: [], numberMatchCreated: 0, matchPlayed: [], numberMatchPlayed: 0)
+        }
+        
     }
 }
     

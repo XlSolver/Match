@@ -11,6 +11,7 @@ import MapKit
 import Firebase
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseAuth
 
 
 @main

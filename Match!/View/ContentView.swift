@@ -9,7 +9,7 @@ import SwiftUI
 import _MapKit_SwiftUI
 
 struct ContentView: View {
-    @AppStorage ("log_Status") private var logStatus: Bool = false
+    @AppStorage("log_Status") private var logStatus: Bool = false
     var body: some View {
         if logStatus {
             AllMatchView(position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil), searchLocation: .constant(""), price: .constant(0.0), lookAroundScene: .constant(nil), matchName: .constant(""))

@@ -14,6 +14,7 @@ struct SignOut: View {
         NavigationStack {
             Button("Logout") {
                 try? Auth.auth().signOut()
+                print("Calling signOut")
                 logStatus = false
             }
             .navigationTitle("Logout view")

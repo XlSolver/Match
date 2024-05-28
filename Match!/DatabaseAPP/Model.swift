@@ -53,3 +53,53 @@
 //    var gamePlayed: Int = 0
 //    
 //}
+
+import Firebase
+import FirebaseDatabaseInternal
+
+//class connectionToTheRealtimeDatabase: JSONSerialization {
+//    var matchREF: DatabaseReference! = Database.database().reference(fromURL: "https://match-eff74-default-rtdb.europe-west1.firebasedatabase.app/")
+//
+//    
+//}
+
+//RealTimeDatabase
+@Observable
+class RTDB {
+    //reference set in google.plist
+    var matchREF: DatabaseReference = Database.database().reference()
+
+//    ref = Database.database().reference()
+    
+    func testWrite() async {
+        do {
+            try await matchREF.child("users").setValue(["username": "\(Auth.auth().currentUser?.displayName ?? "No name to display")"])
+            print("Data JSON user test saved successfully!")
+        } catch {
+            print("Data could not be saved: \(error).")
+        }
+    }
+    
+}
+
+struct Player: Identifiable, Codable {
+    var id = Auth.auth().currentUser?.uid
+    var fullName = ""
+    var skillLevel: Int = 0
+    var matchCreated: [Match]
+    var numberMatchCreated: Int = 0
+    var matchPlayed: [Match]
+    var numberMatchPlayed: Int = 0
+//    @Attribute(.externalStorage) var profilePicture: Data? //why: Swiftdata stores files up to 128kb N.B. Can't use predicate on this
+//    var playerStats: statistic
+
+}
+
+struct Match: Identifiable, Codable {
+    var id = UUID().uuidString
+    var fieldLatitude: Double = 0.0
+    var fieldLongitude: Double = 0.0
+    var time: Date = Date.now
+    var price: Double = 0.0
+    var matchName: String = "No name"
+}
