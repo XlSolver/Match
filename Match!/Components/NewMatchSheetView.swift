@@ -21,16 +21,22 @@ struct NewMatchSheetView: View {
     @State private var priceString: String = ""
     @State private var searchMapResult: [MKMapItem] = [] //State to keep track of the search results.
     @State private var isShowingMap = false
-    @State private var selectThisPlace: Bool = false
-    @State private var RTDb = RTDB() //istance of real time database observable
+    //observed object with observable macro
+    @State var rtDB: RTDB = RTDB()
+    @State private var showErrorAlert = false
+    @State private var errorMessage = ""
+    @State var latitude: Double = 0.0
+    @State var longitude: Double = 0.0
     
-    @Binding var searchLocation: String
-    @Binding var position: MapCameraPosition
-    @Binding var markerSelector: MKMapItem?
+    @Binding var test: CLLocationCoordinate2D
+    
+    @State var searchLocation: String = ""
+    @State var position: MapCameraPosition = .automatic
+    @State var markerSelector: MKMapItem?
+    @State var selectThisPlace: Bool = false
     
     //To add done button on top of keyboard
     @FocusState private var keyboardFocused: Bool
-    
     
     
     var body: some View {
@@ -50,14 +56,14 @@ struct NewMatchSheetView: View {
                     
                     
                     TextField("0,00€", value: $price, format: .currency(code: "EUR"))
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.asciiCapableNumberPad)
                         .textFieldStyle(.automatic)
                         .focused($keyboardFocused)
                 }
                 Section {
                     DatePicker("Date & Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
                 }
-                MapView()
+                MapView(searchLocation: $searchLocation, positionRegion: $position, markerSelector: $markerSelector, selectThisPlace: $selectThisPlace, latitude: $latitude, longitude: $longitude)
                     .scaledToFill()
                     .clipShape(.rect(cornerRadius: 10))
             }
@@ -77,7 +83,7 @@ struct NewMatchSheetView: View {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     Button(action: { keyboardFocused = false }) {
-                        Text("Done")
+                        Text("Close")
                     }
                 }
             }
@@ -85,21 +91,33 @@ struct NewMatchSheetView: View {
                 //DispatchConcurrentQueue. TODO: CAPIRE COME CARICARE LE COSE IN ALTRI THREAD
                 
             }
+            .alert(isPresented: $showErrorAlert) {
+                            Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+                        }
         }
         //TODO: Inserire questo check per verificare l'inserimento di un posto e assegnarlo
-        .onChange(of: selectThisPlace, { olvValue, newValue in
-            if newValue {
-                let temp = markerSelector?.placemark.coordinate
-            }
-        })
+//        .onChange(of: selectThisPlace) { oldValue, newValue in
+//            print("DIOPORCOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+//            if newValue {
+//                updateCoordinates()
+//            }
+//        } 
+//        .onChange(of: markerSelector) { oldValue, newValue in
+//            print("markerSelector changed to \(String(describing: newValue))")
+//            if selectThisPlace {
+//                updateCoordinates()
+//            }
+//        }
     }
+    
+    
     
     private func saveMatch() async {
         //TODO: Handle error
-        print("DEBUG: Istanza in creazione del nuovo match nel db")
+        print("DEBUG: Saving match with coordinates: \(latitude), \(longitude)")
         let newMatch = Match(
-            fieldLatitude: markerSelector?.placemark.coordinate.latitude ?? 0, //TODO: Handle the error
-            fieldLongitude: markerSelector?.placemark.coordinate.longitude ?? 0, //TODO: Handle the error
+            fieldLatitude: latitude, //TODO: Handle the error
+            fieldLongitude: longitude, //TODO: Handle the error
             time: date,
             price: price,
             matchName: matchName
@@ -108,18 +126,15 @@ struct NewMatchSheetView: View {
         do {
             print("DEBUG: Provo a mettere l'istanza nel db")
             
-            try await RTDb.matchREF.child("users").child("match created").setValue(["match": "\(newMatch)"])
+            try await self.rtDB.matchREF.child("users").child("userID").child("create match").childByAutoId().setValue("\(newMatch)")
             print("Data JSON user test saved successfully!")
-            
-            
             print("Match created successfully!")
             dismiss()
         } catch let error as NSError {
             print("Error creating match: \(error.localizedDescription)")
             print("Error code: \(error.code)")
-            
             // Show an alert to the user with error details
-            let alert = Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .default(Text("OK")))
+            //            let alert = Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .default(Text("OK")))
             //                  present(alert, animated: true)
         }
     }
@@ -127,6 +142,6 @@ struct NewMatchSheetView: View {
 
 
 #Preview {
-    NewMatchSheetView(searchLocation: .constant("vesuvio"), position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil))
+    NewMatchSheetView(test: .constant(.init(latitude: 0.0, longitude: 0.0)))
     //        .modelContainer(for: Match.self)
 }

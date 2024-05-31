@@ -16,16 +16,23 @@ import CoreLocation
 struct MapView: View {
     
     @State private var searchMapResult: [MKMapItem] = [MKMapItem]()
-    @State private var positionRegion: MapCameraPosition = .automatic //Render
-    @State private var searchLocation: String = ""
-    @State private var markerSelector: MKMapItem?
+    //    @State private var positionRegion: MapCameraPosition = .automatic //Render
+    
+    //    @State private var markerSelector: MKMapItem?
     @State private var sheetSelectionDetails: Bool = false
     @State private var getDirections: Bool = false
     @State private var routeDisplaying: Bool = false //If a route is displaying
     @State private var route: MKRoute?
     @State private var routeDestination: MKMapItem?
     @State private var posizione = userLocationManager() //Retrive user location from MAPKIT class
-    @State private var selectThisPlace: Bool = false
+    //    @State private var selectThisPlace: Bool = false
+    
+    @Binding var searchLocation: String
+    @Binding var positionRegion: MapCameraPosition
+    @Binding var markerSelector: MKMapItem?
+    @Binding var selectThisPlace: Bool
+    @Binding var latitude: Double
+    @Binding var longitude: Double
     
     
     var body: some View {
@@ -41,24 +48,25 @@ struct MapView: View {
             //Like Marker, Annotation is used to display content at a specific coordinate but displays a SwiftUI View.
             
             ForEach(searchMapResult, id: \.self) { result in
-//MARK: This code is usefull to understand oh to show things but when it is enabled the compiler is unable to type-check
-//                if routeDisplaying {
-//                    if result == routeDestination {
-//                        //Only show the selected placemark
-//                        let placemark = result.placemark
-//                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-//                    }
-//                } else {
-                    let placemark = result.placemark
-                    Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                    
-//                }
+                //MARK: This code is usefull to understand oh to show things but when it is enabled the compiler is unable to type-check
+                //                if routeDisplaying {
+                //                    if result == routeDestination {
+                //                        //Only show the selected placemark
+                //                        let placemark = result.placemark
+                //                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                //                    }
+                //                } else {
+                let placemark = result.placemark
+                Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                
+                
+                //                }
             }
             
-            if let route {
-                MapPolyline(route.polyline)
-                    .stroke(.blue, lineWidth: 6)
-            }
+            //            if let route {
+            //                MapPolyline(route.polyline)
+            //                    .stroke(.blue, lineWidth: 6)
+            //            }
             
         }
         .mapStyle(.standard(elevation: .realistic))
@@ -88,10 +96,10 @@ struct MapView: View {
         //Whenever we select an item, if newValue is not nil then show the value in sheet
         .onChange(of: markerSelector, { oldValue, newValue in
             sheetSelectionDetails = newValue != nil
+            
         })
         .sheet(isPresented: $sheetSelectionDetails, content: { LocationDetailsView(markerSelector: $markerSelector, showSheet: $sheetSelectionDetails, getDirections: $getDirections, selectThisPlace: $selectThisPlace)
             //TODO: check documentation
-            
                 .presentationDetents([.height(340)])
             //Allow the user to interact whit the map when the view is presented
                 .presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
@@ -101,6 +109,11 @@ struct MapView: View {
             MapCompass()
             MapUserLocationButton()
             MapPitchToggle()
+        }
+        .onChange(of: selectThisPlace) { oldValue, newValue in
+            if newValue {
+                updateCoordinates()
+            }
         }
     }
 }
@@ -119,7 +132,6 @@ extension MapView {
             print("DEBUG: response ->>> \(results ?? MKMapItem())")
             print("DEBUG: searchlocation ---> \(searchLocation)")
             print("DEBUG: searchmapresult ---> \(searchMapResult)")
-            
         }
         
         //        Task {
@@ -133,6 +145,15 @@ extension MapView {
         //
         //        print("DEBUG: searchmapresult ---> \(searchMapResult)")
         
+    }
+    private func updateCoordinates() {
+        if let coordinate = markerSelector?.placemark.coordinate {
+            latitude = coordinate.latitude
+            longitude =  coordinate.longitude
+            print("DEBUG: Coordinates updated: \(latitude), \(longitude)")
+        } else {
+            print("No coordinates to add")
+        }
     }
     
     func fetchUserPosition() -> MKUserLocation {
@@ -184,5 +205,5 @@ extension MapView {
 //}
 
 #Preview {
-    MapView()
+    MapView(searchLocation: .constant(""), positionRegion: .constant(.automatic), markerSelector: .constant(nil), selectThisPlace: .constant(false), latitude: .constant(0.000001), longitude: .constant(0.0000001))
 }

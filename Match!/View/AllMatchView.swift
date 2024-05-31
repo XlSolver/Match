@@ -22,6 +22,10 @@ struct AllMatchView: View {
     @Binding var price: Double
     @Binding var lookAroundScene: MKLookAroundScene?
     @Binding var matchName: String
+    @Binding var selectThisPlace: Bool
+    @Binding var latitude: Double
+    @Binding var longitude: Double
+    @Binding var test: CLLocationCoordinate2D
     
     
     //    @Query (sort: \Match.time, animation: .smooth) var allMatchesInRange: [Match]
@@ -31,6 +35,8 @@ struct AllMatchView: View {
     //observed object with observable macro
     @State var rtDB: RTDB = RTDB()
     
+    let match = Match()
+    
     var body: some View {
         NavigationStack {
             List {
@@ -39,6 +45,8 @@ struct AllMatchView: View {
                         await signOut(info: Auth.auth())
                     }
                 }
+                //Show all match
+                
                 //lista dei match
                 //                ForEach(allMatchesInRange) { item in
                 //                    NavigationLink(destination: MatchElementView(markerSelector: markerSelector, price: item.price, lookAroundScene: $lookAroundScene, matchName: item.matchName, match: $match)) {
@@ -79,13 +87,13 @@ struct AllMatchView: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $IsShowingSheet){
-                        NewMatchSheetView(searchLocation: $searchLocation, position: $position, markerSelector: $markerSelector)
+                        NewMatchSheetView(test: $test)
                     }
                 }
             }
             .navigationTitle("All match!")
             .task {
-                await rtDB.testWrite()
+                await saveCurrentUserIdToDatabase()
             }
         }
     }
@@ -104,6 +112,44 @@ struct AllMatchView: View {
         print("LogStatus: \(logStatus)")
         
     }
+    
+    func saveCurrentUserIdToDatabase() async {
+        do {
+//            try await self.rtDB.matchREF.child("users").child("userID").setValue(["ID": "\(Auth.auth().currentUser?.uid ?? "No id to display")"])
+            
+            try await self.rtDB.matchREF.child("users").child("userID").childByAutoId().setValue("\(Auth.auth().currentUser?.uid ?? "No id to display")")
+            print("Data JSON id saved successfully!")
+        } catch {
+            print("ID Data could not be saved: \(error.localizedDescription).")
+        }
+    }
+    
+    func readFromDatabaseNumberPlayerForMatch() async {
+        do {
+            try await self.rtDB.matchREF.child("ID").observe(.value, with: { snapshot in
+                
+                if let value = snapshot.value as? Int {
+                    let matchSubscribers = Match(subscribers: Int(snapshot.childrenCount))
+                }
+            })
+        } catch {
+            print("Can't read from database: \(error.localizedDescription).")
+        }
+    }
+    func readFromDatabaseMatchAmount() -> Int {
+        
+        Int(
+            rtDB.matchREF.observe(DataEventType.value, with: { snapshot in
+                let reference = snapshot.ref
+                let value = snapshot.value
+                //                let match = Match().id.count
+            }))
+    }
+    
+    func showAllMatch() {
+        
+    }
+    
     //    func deleteMatches(at offsets: IndexSet) {
     //        match.remove(atOffsets: offsets)
     //        do {
@@ -117,5 +163,5 @@ struct AllMatchView: View {
 #Preview {
     //    AllMatchView(player: .constant(Player(name: "", surname: "", age: 0, skillLevel: 0, profilePicture: Data())), match: .constant([Match]()), position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil), searchLocation: .constant(""), price: .constant(0.0), lookAroundScene: .constant(nil), matchName: .constant(""))
     //        .modelContainer(for: Match.self)
-    AllMatchView(position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil), searchLocation: .constant(""), price: .constant(0.0), lookAroundScene: .constant(nil), matchName: .constant(""))
+    AllMatchView(position: .constant(MapCameraPosition.automatic), markerSelector: .constant(nil), searchLocation: .constant(""), price: .constant(0.0), lookAroundScene: .constant(nil), matchName: .constant(""), selectThisPlace: .constant(false), latitude: .constant(1.5), longitude: .constant(1.5), test: .constant(.init(latitude: 10.1, longitude: 10.1)))
 }

@@ -149,7 +149,7 @@ struct SignIn: View {
     
     func doesUserExist() {
         if auth.currentUser?.uid != nil {
-            print("User \(auth.currentUser?.uid)")
+            print("User \(auth.currentUser?.uid ?? "No currentUser id")")
         } else {
             
             let newUser = Player(id: auth.currentUser?.uid ?? UUID().uuidString, fullName: auth.currentUser?.displayName ?? "No name retrieved from apple", skillLevel: 0, matchCreated: [], numberMatchCreated: 0, matchPlayed: [], numberMatchPlayed: 0)

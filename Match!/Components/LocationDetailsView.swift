@@ -1,21 +1,16 @@
-//
-//  LocationDetailsView.swift
-//  Match!
-//
-//  Created by Salvatore Flauto on 05/03/24.
-//
-
 import SwiftUI
 import MapKit
 
 struct LocationDetailsView: View {
     
     @State private var lookAroundScene: MKLookAroundScene?
+    @State private var test: CLLocationCoordinate2D?
     
     @Binding var markerSelector: MKMapItem?
     @Binding var showSheet: Bool
     @Binding var getDirections: Bool
     @Binding var selectThisPlace: Bool
+    
     
     var body: some View {
         VStack {
@@ -46,9 +41,7 @@ struct LocationDetailsView: View {
             .padding(.horizontal)
             .padding(.top)
             
-            //Look around in sheet view
             if let scene = lookAroundScene {
-                //Generate the scene with this parameters
                 LookAroundPreview(initialScene: scene)
                     .frame(height: 200)
                     .presentationCornerRadius(12)
@@ -72,9 +65,7 @@ struct LocationDetailsView: View {
                 Button {
                     selectThisPlace = true
                     showSheet = false
-                    
-                    //TODO: Potrei fare una cosa del tipo se cliccassi select salverei prima in una variabile, e nel caso
-                    //in cui si clicchi su create match, salverei la variabile in swiftdata
+                    print("LocationDetailsView: Select this place clicked. selectThisPlace set to \(selectThisPlace)")
                 } label: {
                     Text("Select this place")
                         .font(.headline)
@@ -83,26 +74,14 @@ struct LocationDetailsView: View {
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
-                
-                //                Button {
-                //                        getDirections = true
-                //                        showSheet = false
-                //                } label: {
-                //                    Text("Get directions")
-                //                        .font(.headline)
-                //                        .foregroundStyle(.white)
-                //                        .frame(width: 170, height: 48)
-                //                        .background(.blue)
-                //                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                //                }
             }
         }
         .onAppear {
-            print("DEBUG: Did call on appear")
+            print("LocationDetailsView: Did call on appear")
             fetchLookAroundPreview()
         }
         .onChange(of: markerSelector) { oldValue, newValue in
-            print("DEBUG: Did call on change")
+            print("LocationDetailsView: Did call on change")
             fetchLookAroundPreview()
         }
         .padding()

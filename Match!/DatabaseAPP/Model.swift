@@ -68,21 +68,10 @@ import FirebaseDatabaseInternal
 class RTDB {
     //reference set in google.plist
     var matchREF: DatabaseReference = Database.database().reference()
-
 //    ref = Database.database().reference()
-    
-    func testWrite() async {
-        do {
-            try await matchREF.child("users").setValue(["username": "\(Auth.auth().currentUser?.displayName ?? "No name to display")"])
-            print("Data JSON user test saved successfully!")
-        } catch {
-            print("Data could not be saved: \(error).")
-        }
-    }
-    
 }
 
-struct Player: Identifiable, Codable {
+struct Player: Codable {
     var id = Auth.auth().currentUser?.uid
     var fullName = ""
     var skillLevel: Int = 0
@@ -95,11 +84,13 @@ struct Player: Identifiable, Codable {
 
 }
 
-struct Match: Identifiable, Codable {
-    var id = UUID().uuidString
+struct Match: Codable {
+    var idCreatorOfMatch = Auth.auth().currentUser?.uid
     var fieldLatitude: Double = 0.0
     var fieldLongitude: Double = 0.0
     var time: Date = Date.now
     var price: Double = 0.0
     var matchName: String = "No name"
+    var subscribers: Int = 0
+    var idPlayerThatWantsToPlay: String?
 }
