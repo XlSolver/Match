@@ -10,6 +10,9 @@
 		F50D4BE12C01E93100D3DF92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F50D4BE02C01E93100D3DF92 /* GoogleService-Info.plist */; };
 		F54014022BF659C200EE2EBD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F54014012BF659C200EE2EBD /* FirebaseAuth */; };
 		F5427A372B8F3ADA0061DA84 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5427A362B8F3ADA0061DA84 /* LocationManager.swift */; };
+		F54299922C1C53C50041C723 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F54299912C1C53C50041C723 /* Lottie */; };
+		F54299942C1D980F0041C723 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54299932C1D980F0041C723 /* AnimationView.swift */; };
+		F54299992C1D9A190041C723 /* CupAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F54299982C1D9A190041C723 /* CupAnimation.json */; };
 		F54BB65F2B72D4F70010E2D5 /* MatchElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54BB65E2B72D4F70010E2D5 /* MatchElementView.swift */; };
 		F558DA992B782CA400D95E84 /* NewMatchSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F558DA982B782CA400D95E84 /* NewMatchSheetView.swift */; };
 		F56F2EE32BCFF44600577D86 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F2EE22BCFF44600577D86 /* File.swift */; };
@@ -35,6 +38,8 @@
 		F50D4BE22C01E9BB00D3DF92 /* Match!.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "Match!.entitlements"; sourceTree = "<group>"; };
 		F5281E802BC83AD900AEB45C /* Match--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Match--Info.plist"; path = "Match!/Miscellaneous/Match--Info.plist"; sourceTree = SOURCE_ROOT; };
 		F5427A362B8F3ADA0061DA84 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		F54299932C1D980F0041C723 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		F54299982C1D9A190041C723 /* CupAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CupAnimation.json; sourceTree = "<group>"; };
 		F54BB65E2B72D4F70010E2D5 /* MatchElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchElementView.swift; sourceTree = "<group>"; };
 		F558DA982B782CA400D95E84 /* NewMatchSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMatchSheetView.swift; sourceTree = "<group>"; };
 		F56F2EE22BCFF44600577D86 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -58,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54299922C1C53C50041C723 /* Lottie in Frameworks */,
 				F5A49AAF2BFFEDF900F70F84 /* FirebaseDatabaseSwift in Frameworks */,
 				F5B52CEC2BF4B7C600A6A762 /* FirebaseAnalyticsSwift in Frameworks */,
 				F54014022BF659C200EE2EBD /* FirebaseAuth in Frameworks */,
@@ -82,6 +88,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F54299952C1D999C0041C723 /* AnimationSupport */ = {
+			isa = PBXGroup;
+			children = (
+				F54299932C1D980F0041C723 /* AnimationView.swift */,
+				F54299982C1D9A190041C723 /* CupAnimation.json */,
+			);
+			path = AnimationSupport;
 			sourceTree = "<group>";
 		};
 		F56F2EE02BCFF3FC00577D86 /* Miscellaneous */ = {
@@ -139,6 +154,7 @@
 				F59994662B14B7100099596B /* View */,
 				F5CEDFD52B14A94200A50B16 /* DatabaseAPP */,
 				F5DF56E42B60761800DE223A /* Components */,
+				F54299952C1D999C0041C723 /* AnimationSupport */,
 				F56F2EE02BCFF3FC00577D86 /* Miscellaneous */,
 				F56F2EE12BCFF42400577D86 /* Assets */,
 				F5CEDFCD2B14A92600A50B16 /* Preview Content */,
@@ -195,6 +211,7 @@
 				F5B52CEB2BF4B7C600A6A762 /* FirebaseAnalyticsSwift */,
 				F54014012BF659C200EE2EBD /* FirebaseAuth */,
 				F5A49AAE2BFFEDF900F70F84 /* FirebaseDatabaseSwift */,
+				F54299912C1C53C50041C723 /* Lottie */,
 			);
 			productName = "Match!";
 			productReference = F5CEDFC42B14A92400A50B16 /* Match!.app */;
@@ -226,6 +243,7 @@
 			mainGroup = F5CEDFBB2B14A92400A50B16;
 			packageReferences = (
 				F5B52CE82BF4B7C500A6A762 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F54299902C1C53C50041C723 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = F5CEDFC52B14A92400A50B16 /* Products */;
 			projectDirPath = "";
@@ -245,6 +263,7 @@
 				F50D4BE12C01E93100D3DF92 /* GoogleService-Info.plist in Resources */,
 				F5CEDFCC2B14A92600A50B16 /* Assets.xcassets in Resources */,
 				F5D3A8812B989FDD0055FFC8 /* CupAnimation.mov in Resources */,
+				F54299992C1D9A190041C723 /* CupAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +285,7 @@
 				F5CEDFC82B14A92400A50B16 /* Match_App.swift in Sources */,
 				F5A49AAB2BFFE18800F70F84 /* SignOut.swift in Sources */,
 				F5A49AAD2BFFE2A500F70F84 /* ContentView.swift in Sources */,
+				F54299942C1D980F0041C723 /* AnimationView.swift in Sources */,
 				F54BB65F2B72D4F70010E2D5 /* MatchElementView.swift in Sources */,
 				F59994682B14B72C0099596B /* PlayerView.swift in Sources */,
 			);
@@ -497,6 +517,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F54299902C1C53C50041C723 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 		F5B52CE82BF4B7C500A6A762 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -512,6 +540,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5B52CE82BF4B7C500A6A762 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		F54299912C1C53C50041C723 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F54299902C1C53C50041C723 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 		F5A49AAE2BFFEDF900F70F84 /* FirebaseDatabaseSwift */ = {
 			isa = XCSwiftPackageProductDependency;

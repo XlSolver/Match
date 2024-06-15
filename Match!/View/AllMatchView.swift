@@ -98,6 +98,8 @@ struct AllMatchView: View {
         }
     }
     
+    //TODO: SHIMMERVIEW()
+    
     func signOut(info: Auth) async {
         let firebaseAuth = Auth.auth()
         do {

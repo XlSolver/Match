@@ -10,6 +10,7 @@ import AuthenticationServices
 import CryptoKit
 import Firebase
 import FirebaseAuth
+import Lottie
 
 struct SignIn: View {
     //Environment variable
@@ -26,6 +27,9 @@ struct SignIn: View {
     
     var body: some View {
         VStack {
+            LottieView(animation: .named("CupAnimation"))
+                .playing()
+                .looping()
             SignInWithAppleButton(.signIn) { request in
                 let nonce = randomNonceString()
                 self.nonce = nonce
