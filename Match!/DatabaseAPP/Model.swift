@@ -67,8 +67,11 @@ import FirebaseDatabaseInternal
 @Observable
 class RTDB {
     //reference set in google.plist
-    var matchREF: DatabaseReference = Database.database().reference()
-//    ref = Database.database().reference()
+    let matchREF: DatabaseReference = Database.database().reference()
+    
+    var matchObject: Match? = nil
+    
+    static var listMatchObject: [Match] = []
 }
 
 struct Player: Codable {
@@ -84,11 +87,11 @@ struct Player: Codable {
 
 }
 
-struct Match: Codable {
-    var idCreatorOfMatch = Auth.auth().currentUser?.uid
+struct Match: Codable, Hashable {
+    var idCreatorOfMatch: String?
     var fieldLatitude: Double = 0.0
     var fieldLongitude: Double = 0.0
-    var time: Date = Date.now
+    var time: TimeInterval = 0.0
     var price: Double = 0.0
     var matchName: String = "No name"
     var subscribers: Int = 0

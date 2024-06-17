@@ -28,12 +28,11 @@ struct NewMatchSheetView: View {
     @State var latitude: Double = 0.0
     @State var longitude: Double = 0.0
     
-    @Binding var test: CLLocationCoordinate2D
-    
     @State var searchLocation: String = ""
     @State var position: MapCameraPosition = .automatic
     @State var markerSelector: MKMapItem?
     @State var selectThisPlace: Bool = false
+    @State var subscribers: Int = 0
     
     //To add done button on top of keyboard
     @FocusState private var keyboardFocused: Bool
@@ -115,18 +114,22 @@ struct NewMatchSheetView: View {
     private func saveMatch() async {
         //TODO: Handle error
         print("DEBUG: Saving match with coordinates: \(latitude), \(longitude)")
-        let newMatch = Match(
-            fieldLatitude: latitude, //TODO: Handle the error
-            fieldLongitude: longitude, //TODO: Handle the error
-            time: date,
-            price: price,
-            matchName: matchName
-        )
+//        let newMatch = Match(
+//            fieldLatitude: latitude,
+//            fieldLongitude: longitude,
+//            time: Date(),
+//            price: price,
+//            matchName: matchName, 
+//            subscribers: subscribers
+//        )
+        let dictionary: NSDictionary = (["latitude":latitude, "longitude":longitude, "price":price,
+            "subscribers":subscribers])
         
         do {
             print("DEBUG: Provo a mettere l'istanza nel db")
             
-            try await self.rtDB.matchREF.child("users").child("userID").child("create match").childByAutoId().setValue("\(newMatch)")
+            try await self.rtDB.matchREF.child("users").child("\(matchName)").setValue(dictionary)
+            
             print("Data JSON user test saved successfully!")
             print("Match created successfully!")
             dismiss()
@@ -142,6 +145,6 @@ struct NewMatchSheetView: View {
 
 
 #Preview {
-    NewMatchSheetView(test: .constant(.init(latitude: 0.0, longitude: 0.0)))
+    NewMatchSheetView()
     //        .modelContainer(for: Match.self)
 }
